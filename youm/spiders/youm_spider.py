@@ -8,10 +8,17 @@ and the label you want to give
 and the number of pages you want crawled
 
 example:
-scrapy crawl youm -o data.json -a label=0 -a pages=3 -a category=علوم-و-تكنولوجيا/328/
-scrapy crawl youm -o data.json -a label=1 -a pages=3 -a category=فن/48/
-scrapy crawl youm -o data.json -a label=2 -a pages=3 -a category=سياسة/319/
-scrapy crawl youm -o data.json -a label=3 -a pages=3 -a category=أخبار-الرياضة/298/
+
+scrapy crawl youm -o data.json -a label=0 -a pages=20 -a category=علوم-و-تكنولوجيا/328/
+scrapy crawl youm -o data.json -a label=1 -a pages=20 -a category=فن/48/
+scrapy crawl youm -o data.json -a label=2 -a pages=20 -a category=سياسة/319/
+scrapy crawl youm -o data.json -a label=3 -a pages=20 -a category=أخبار-الرياضة/298/
+scrapy crawl youm -o data.json -a label=4 -a pages=20 -a category=اقتصاد-وبورصة/297/
+scrapy crawl youm -o data.json -a label=5 -a pages=20 -a category=صحة-وطب/245/
+
+
+
+
 
 also u can use the percentage encodings like so:
 scrapy crawl youm -o data.json -a label=1 -a pages=3 -a category=%D9%81%D9%86/48/
@@ -46,9 +53,11 @@ class YoumSpider(scrapy.Spider):
     def parse_article(self, response):
         article=' '.join((response.css('#articleBody p::text')).extract())
         article_clean=''.join(e for e in article if (e.isalnum() or e==' '))
+        title=response.css('h1::text').extract()[0]
         yield {
             'article':article_clean,
             'link':response.request.url,
             'category':self.category.split('/')[0].replace('-',' '),
-            'label':self.label
+            'label':self.label,
+            'title':title
         }
