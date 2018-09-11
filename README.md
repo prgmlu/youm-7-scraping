@@ -52,6 +52,21 @@ An important note, after scraping the above categories as shown, if the output i
 python3 de_corrupt.py
 ```
 
+# UPDATE
+I've abstracted the above process in a single python script, which can be invoked like the following:
+
+```
+python3 pipeline.py
+```
+The arguments indicated above can be put in the following part of the script, which will be piped to the shell.
+
+![image](https://user-images.githubusercontent.com/20475053/45386386-895ce300-b613-11e8-89ee-8f630d0ada85.png)
+
+please note that you will need Pandas library, since it's used in the above script to filter short articles.
+
+```
+pip3 install pandas
+```
 
 ## Authors
 
